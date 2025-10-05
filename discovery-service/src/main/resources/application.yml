@@ -1,0 +1,18 @@
+server:
+  port: 8761  # Standard Eureka port
+
+spring:
+  application:
+    name: discovery-service
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    enable-self-preservation: true  # Protects against network issues
+    eviction-interval-timer-in-ms: 60000  # How often to check for expired clients
