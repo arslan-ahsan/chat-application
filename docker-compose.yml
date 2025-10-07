@@ -1,0 +1,30 @@
+services:
+  discovery-service:
+    build:
+      context: ./discovery-service
+    image: chat-app/discovery-service:latest
+    container_name: discovery-service
+    ports:
+      - "8761:8761"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  auth-service:
+    build:
+      context: ./auth-service
+    image: chat-app/auth-service:latest
+    container_name: auth-service
+    ports:
+      - "8081:8081"
+    environment:
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery-service:8761/eureka/
+    depends_on:
+      - discovery-service
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
