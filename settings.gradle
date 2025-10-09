@@ -1,1 +1,6 @@
 rootProject.name = 'chat-application'
+
+include 'common-utils'
+include 'discovery-service'
+include 'api-gateway'
+include 'auth-service'
